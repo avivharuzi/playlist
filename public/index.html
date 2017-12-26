@@ -11,14 +11,77 @@
         <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="assets/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="assets/select2/dist/css/select2.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     </head>
     <body>
+        <div class="container mt-5">
+            <div id="nav" class="mb-3">
+                <div class="row">
+                    <div class="col-lg-2 mobile-b-3">
+                        <button class="btn btn-primary btn-block text-center"><i class="fa fa-plus mr-2"></i>Add Playlist</button>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-2 mobile-b-3">
+                        <button class="btn btn-danger btn-block text-center"><i class="fa fa-heart mr-2"></i>Favorites</button>
+                    </div>
+                    <div class="col-lg-4 mobile-b-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mainPlayer" class="d-none mb-5">
+                <div class="hero">
+                    <div class="audio-player">
+                        <div id="playerHeader">
+                        </div>
+                        <div class="audio-wrapper" id="playerContainer">
+                            <audio id="player" ontimeupdate="initProgressBar()">
+                                <source id="sourcePlayer" src="" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    <div class="player-controls">
+                        <span id="seekContainer">
+                            <small id="startTime">00:00</small>
+                            <progress id="seek" value="0" max="1"></progress>
+                            <small id="endTime">00:00</small>
+                        </span>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <i class="fa fa-backward player-icons" alt="backward" id="backward"></i>
+                    <i class="fa fa-play player-icons" alt="playPause" id="playPause"></i>
+                    <i class="fa fa-forward player-icons" alt="forward" id="forward"></i>
+                    <i class="fa fa-random" data-random="false" alt="random" id="random"></i>
+                    <i class="fa fa-retweet" alt="retweet" id="retweet"></i>
+                    <i class="fa fa-heart" alt="heart" id="heart"></i>
+                    <i class="fa fa-volume-up" alt="volume" id="volume"></i>
+                    <div id="volumeControl">
+                        <input type="range" class="slider" id="rangeVolume" min="0" max="1" step="0.01" value="1">
+                    </div>
+                    <i class="fa fa-list chosen-control" alt="list" id="list"></i>
+                </div>
+                <ul class="playlist-songs">
+                </ul>
+            </div>
+            <div class="mt-5">
+                <div class="row" id="mainPlaylists">
+                </div>
+            </div>
+        </div>
         <script src="assets/jquery/dist/jquery.min.js"></script>
         <script src="assets/popper.js/dist/umd/popper.min.js"></script>
         <script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="assets/select2/dist/js/select2.min.js"></script>
+        <script src="js/templates/player.template.js"></script>
+        <script src="js/templates/playlist.template.js"></script>
+        <script src="js/controllers/audio.controller.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>
