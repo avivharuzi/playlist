@@ -66,11 +66,6 @@ $(function () {
 			$(".song").random().click();
 		}
 	});
-
-	mainPlaylists.on("click", ".play-playlist", function () {
-		let order = $(this).attr("data-order");
-		playerTemplate(playlists[order], mainPlayer);
-	});
     
 	setVolume();
 	initPlayers();
