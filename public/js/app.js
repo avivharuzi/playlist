@@ -9,15 +9,24 @@ $(function () {
 		$(this).parents(".add-new-song-col").remove();
 	});
 
-	$("#addPlaylistGenre").select2({
+	$("#genre").select2({
 		placeholder: "Genre",
 		data: genre,
 		allowClear: true,
 		language: "en",
 		tags: true,
 		width: "100%",
-		dropdownParent: $("#addPlaylistModal")
+		dropdownParent: $("#playlistModal")
 	});
+
+	$("#setPlaylistFinally").on("click", function () {
+		setPlaylist(function (res) {
+			console.log(res);
+		});
+	});
+
+	checkForDelete("#deletePlaylistFromPlayer", false);
+	checkForDelete(".deletePlaylistFromPlaylists", true);
 });
 
 function playlistsActions() {
@@ -44,11 +53,38 @@ function getSongsToSelect2() {
 			allowClear: true,
 			language: "en",
 			width: "100%",
-			dropdownParent: $("#addPlaylistModal")
+			dropdownParent: $("#playlistModal")
 		});
 	});
 }
 
+function deletePlaylist(element) {
+	let playlistId = $(element).attr("data-id");
+	console.log(playlistId);
+}
+
+function checkForDelete(input, isClass) {
+	$("body").on("click", input, function (e) {
+		let $this = $(this);
+        e.preventDefault();
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+			cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Yes'
+        }).then(function (result) {
+			if (result.value) {
+				if (isClass) {
+					deletePlaylist($this);
+				} else {
+					deletePlaylist(input);
+				}
+			}
+        })
+    });
+}
 
 let genre = 
 ["Blues","Classic Rock","Country","Dance","Disco","Funk","Grunge",

@@ -2,7 +2,7 @@
   "name": "playlist-node",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +21,7 @@
     "debug": "^3.1.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-fileupload": "^0.3.0",
     "express-validation": "^1.0.2",
     "express-validator": "^4.3.0",
     "font-awesome": "^4.7.0",

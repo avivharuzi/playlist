@@ -5,6 +5,7 @@ const logger = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const api = require('./routes/api');
 
@@ -19,17 +20,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(validator());
+app.use(fileUpload());
 
 app.use('/', express.static(path.join(__dirname + '/public')));
 app.use('/assets', express.static(path.join(__dirname + '/node_modules')));
-
-app.use(validator({
-    customValidators: {
-        isRegex: (input, reg) => {
-            return reg.test(input);
-        }
-    }
-}));
 
 app.use('/api', api);
 

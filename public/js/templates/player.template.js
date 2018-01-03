@@ -13,7 +13,7 @@ function playerTemplate(playlist, element) {
 	let outputPlayerHeader = `
 	<img src="images/${image}" class="hero-background">
 	<img src="images/${image}" class="album-image">
-	<i class="fa fa-trash trash-player float-right"></i>
+	<i class="fa fa-trash trash-player float-right" id="deletePlaylistFromPlayer" data-id="${playlist._id}"></i>
 	<i class="fa fa-pencil pencil-player float-right"></i>
 	<span id="playlistName">${playlist.name}</span>
 	<br>
