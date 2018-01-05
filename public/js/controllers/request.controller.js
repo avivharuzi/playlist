@@ -25,13 +25,10 @@ function getSongs(cb) {
 function deletePlaylist(_id, cb) {
 	$.ajax({
 		type: "DELETE",
-		url: "http://localhost:3000/api/playlist",
+		url: "http://localhost:3000/api/playlist/" + _id,
 		dataType: "JSON",
-		data: {
-			id: _id
-		},
-		success: function (data) {
-			cb(data);
+		success: function (res) {
+			cb(res);
 		}
 	});
 }
@@ -61,6 +58,17 @@ function setPlaylist(cb) {
         data: fd,
 		success: function (data) {
 			cb(data);
+		},
+		beforeSend: function () {
+			$("#playlistForm").addClass("invisible");
+			$("#mainLoader").show();
+		},
+		complete: function () {
+			setTimeout(function () {
+				$("#playlistForm").removeClass("invisible");
+				$("#mainLoader").hide();
+				clearTimeout();
+			}, 1000);
 		}
 	});
 }

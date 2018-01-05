@@ -1,11 +1,19 @@
 body {
 	background: #C1C1C1;
+	padding-top: 75px;
 }
 
 #mainPlayer {
 	-webkit-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
     -moz-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
 	box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
+}
+
+#nav {
+	background: #fff;
+	width: 100%;
+	padding: 20px 0;
+	border-bottom: 5px solid #EAEAEA;
 }
 
 .album-image {
@@ -198,7 +206,7 @@ progress::-webkit-progress-value {
 	padding: 40px;
 	font-size: 1.3rem;
 	cursor: pointer;
-	z-index: 999;
+	z-index: 99;
 	display: none;
 }
 
@@ -220,7 +228,7 @@ progress::-webkit-progress-value {
 	color: #333;
 	background: #fff;
 	padding: 20px 10px;
-	z-index: 999;
+	z-index: 99;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: block;
@@ -235,7 +243,7 @@ progress::-webkit-progress-value {
     position: absolute;
     bottom: -20%;
     left: 15%;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     transform: translate(-50%, -50%);
     color: #fff;
     background: #868E96;
@@ -243,7 +251,9 @@ progress::-webkit-progress-value {
     -webkit-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
     -moz-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
     box-shadow: 0 8px 8px 3px rgba(0, 0, 0, 0.52);
-    z-index: 99;
+	z-index: 99;
+	width: 70px;
+	height: 70px;
 }
 
 input[type=range] {
@@ -280,7 +290,7 @@ input[type=range]::-webkit-slider-thumb {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	font-size: 1.2rem;
-	height: 250px;
+	max-height: 250px;
 	overflow: auto;
 }
 
@@ -303,7 +313,7 @@ input[type=range]::-webkit-slider-thumb {
 
 .playlist-icon-trash, .playlist-icon-pencil {
 	position: absolute;
-	z-index: 999;
+	z-index: 99;
 }
 
 .playlist-icon-trash {
@@ -439,6 +449,10 @@ audio {
 }
 
 @media only screen and (max-width: 991px) {
+	body {
+		padding-top: 250px;
+	}
+
 	.album-image {
 		width: 200px;
 		margin-bottom: 20px;

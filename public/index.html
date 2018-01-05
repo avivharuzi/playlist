@@ -1,3 +1,13 @@
+<!--
+================================================================================
+d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b 
+88  `8D 88      d8' `8b `8b  d8' 88        `88'   88'  YP `~~88~~' 
+88oodD' 88      88ooo88  `8bd8'  88         88    `8bo.      88    
+88~~~   88      88~~~88    88    88         88      `Y8b.    88    
+88      88booo. 88   88    88    88booo.   .88.   db   8D    88    
+88      Y88888P YP   YP    YP    Y88888P Y888888P `8888Y'    YP    
+================================================================================
+-->
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
@@ -15,16 +25,18 @@
         <link rel="stylesheet" type="text/css" href="assets/sweetalert2/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/loader.css">
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     </head>
     <body>
-        <div class="container mt-5">
-            <div id="nav" class="mb-3">
-                <div class="row">
+        <div id="nav" class="mb-3 fixed-top">
+            <div class="container">
+                <div class="row" id="nav-header">
+                    <div class="col-lg-3 mobile-b-3">
+                        <button class="btn btn-dark btn-block text-center"><i class="fa fa-home mr-2"></i>Home</button>
+                    </div>
                     <div class="col-lg-3 mobile-b-3">
                         <button class="btn btn-primary btn-block text-center" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus mr-2"></i>Add New Playlist</button>
-                    </div>
-                    <div class="col-lg-3">
                     </div>
                     <div class="col-lg-3 mobile-b-3">
                         <button class="btn btn-danger btn-block text-center"><i class="fa fa-heart mr-2"></i>Favorites</button>
@@ -32,19 +44,37 @@
                     <div class="col-lg-3 mobile-b-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" id="searchPlaylistValue" placeholder="Search">
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container" id="mainContainer">
             <div class="modal fade bd-example-modal-lg" tabindex="-1" id="playlistModal" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content container">
+                        <div id="mainLoader">
+                            <div class="sk-fading-circle">
+                                <div class="sk-circle1 sk-circle"></div>
+                                <div class="sk-circle2 sk-circle"></div>
+                                <div class="sk-circle3 sk-circle"></div>
+                                <div class="sk-circle4 sk-circle"></div>
+                                <div class="sk-circle5 sk-circle"></div>
+                                <div class="sk-circle6 sk-circle"></div>
+                                <div class="sk-circle7 sk-circle"></div>
+                                <div class="sk-circle8 sk-circle"></div>
+                                <div class="sk-circle9 sk-circle"></div>
+                                <div class="sk-circle10 sk-circle"></div>
+                                <div class="sk-circle11 sk-circle"></div>
+                                <div class="sk-circle12 sk-circle"></div>
+                            </div>
+                        </div>
                         <form id="playlistForm">
                             <div class="jumbotron mt-3 p-2 text-center text-light bg-secondary">
                                 <h3>Add New Playlist</h3>
                             </div>
-                            <div id="playlistMessage" class="d-none m-3">
+                            <div id="playlistMessage">
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-6">
@@ -92,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <div id="mainPlayer" class="d-none mb-5">
+            <div id="mainPlayer" class="d-none mt-5 mb-5">
                 <div class="hero">
                     <div class="audio-player">
                         <div id="playerHeader">

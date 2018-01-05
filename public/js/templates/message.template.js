@@ -17,7 +17,7 @@ function messageTemplate(data, element) {
         output += 
         `<div class="alert alert-success alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <p class="lead"><i class="fa fa-check-circle-o mr-2"></i>${data.success}</p>
+            <p class="lead"><i class="fa fa-check-circle-o mr-2"></i>${data.message}</p>
         </div>`;
         element.html(output);
         return true;

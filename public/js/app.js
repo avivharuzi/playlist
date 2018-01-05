@@ -21,7 +21,7 @@ $(function () {
 
 	$("#setPlaylistFinally").on("click", function () {
 		setPlaylist(function (res) {
-			console.log(res);
+			messageTemplate(res, $("#playlistMessage"));
 		});
 	});
 
@@ -58,9 +58,12 @@ function getSongsToSelect2() {
 	});
 }
 
-function deletePlaylist(element) {
+function deletePlaylistAction(element) {
 	let playlistId = $(element).attr("data-id");
-	console.log(playlistId);
+
+	deletePlaylist(playlistId, function (res) {
+		playlistsActions();
+	});
 }
 
 function checkForDelete(input, isClass) {
@@ -77,9 +80,9 @@ function checkForDelete(input, isClass) {
         }).then(function (result) {
 			if (result.value) {
 				if (isClass) {
-					deletePlaylist($this);
+					deletePlaylistAction($this);
 				} else {
-					deletePlaylist(input);
+					deletePlaylistAction(input);
 				}
 			}
         })

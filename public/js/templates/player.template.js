@@ -15,7 +15,7 @@ function playerTemplate(playlist, element) {
 	<img src="images/${image}" class="album-image">
 	<i class="fa fa-trash trash-player float-right" id="deletePlaylistFromPlayer" data-id="${playlist._id}"></i>
 	<i class="fa fa-pencil pencil-player float-right"></i>
-	<span id="playlistName">${playlist.name}</span>
+	<span id="playlistNamePlaying">${playlist.name}</span>
 	<br>
 	<span id="playlistGenre"># ${playlist.genre}</span>`;
 

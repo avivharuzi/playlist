@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Playlist = require('../models/playlist.model');
 const Song = require('../models/song.model');
-const file = require('../controllers/file.controller');
 const validation = require('../controllers/validation.controller');
+const fileController = require('../controllers/file.controller');
+const playlistController = require('../controllers/playlist.controller');
+const songController = require('../controllers/song.controller');
 
 function problem(res) {
     return res.json({
@@ -109,85 +111,104 @@ router.get('/playlist/genre/:genre', (req, res) => {
         });
 });
 
-// const playlistFd = upload.fields([{name: 'playlistName'}, {name: 'genre'}, {name: 'songName'}, {name: 'album'}, {name: 'songs'}]);
-
 router.post('/playlist', (req, res) => {
     let errors = [];
 
-    let songs = req.files.songs;
-    let album = req.files.album;
-
-    // if (!validation(req.body.playlistName, /^[A-Za-z0-9!@#$%^&*()_. ]{3,255}$/)) {
-    //     errors.push('Playlist name is invalid');
-    // }
-
-    // Playlist.findOne({
-    //     name: req.body.playlistName
-    // }).exec((err, playlist) => {
-    //     if (playlist) {
-    //         errors.push('Playlist name is already in used');
-    //     }
-    // });
-
-    // if (!validation(req.body.genre, /^[A-Za-z0-9 &]{3,55}$/)) {
-    //     errors.push('Genre name is invalid');
-    // }
-
-    // for (let songName of req.body.songName) {
-    //     if (!validation(songName, /^[A-Za-z0-9!@#$%^&*()_. -]{3,255}$/)) {
-    //         errors.push('Song name is invalid');
-    //         break;
-    //     } else if (Song.find({ name: songName })) {
-    //         errors.push('Song name is already in used');
-    //         break;
-    //     }
-    // }
-
-    // console.log(req.body.playlistName);
-    // console.log('===========================');
-    // console.log(req.body.genre);
-    // console.log('===========================');
-    // console.log(req.body.songName);
-    // console.log('===========================');
-    // console.log(req.body.existSongs);
-    // console.log('===========================');
-    // console.log(req.files.album);
-    // console.log('===========================');
-    // console.log(req.files.songs);
-
-    if (album === undefined) {
-        album = null;
-    } else if (!file.checkFileType(album, 'album')) {
-        errors.push('Image is invalid');
+    let playlistName = '';
+    let genre = '';
+    let album = '';
+    let songNames = '';
+    let songAudios = '';
+    let existSongs = '';
+    
+    if (req.body.existSongs) {
+        existSongs = req.body.existSongs;
     }
 
-    if (songs !== undefined) {
-        for (let song of songs) {
-            if (!file.checkFileType(song, 'song')) {
-                errors.push('Song is invalid');
-                break;
+    if (req.files) {
+        if ('album' in req.files) {
+            album = req.files.album;
+        }
+
+        if ('songs' in req.files) {
+            if (req.files.songs.constructor === Array) {
+                songAudios = req.files.songs;
             } else {
-                file.moveFile(song, 'song');
+                songAudios = [req.files.songs];
             }
         }
     }
 
-    console.log(req.files.album.data.toString().length);
-    console.log('======');
-    console.log(file.checkFileSize(album, 20));
+    if (!validation(req.body.playlistName, /^[A-Za-z0-9!@#$%^&*()_., ]{3,255}$/)) {
+        errors.push('Playlist name is invalid');
+    } else {
+        playlistName = req.body.playlistName;
+    }
 
-    if (!errors) {
-        res.json({
-            response: true
-        });
+    if (!validation(req.body.genre, /^[A-Za-z0-9 &]{3,55}$/)) {
+        errors.push('Genre name is invalid');
+    } else {
+        genre = req.body.genre;
+    }
+
+    if (req.body.songName) {
+        if (req.body.songName.constructor === Array) {
+            songNames = req.body.songName;
+        } else {
+            songNames = [req.body.songName];
+        }
+
+        for (let songName of songNames) {
+            if (!validation(songName, /^[A-Za-z0-9!@#$%^&*()_., -]{3,255}$/)) {
+                errors.push('Song name is invalid');
+                break;
+            }
+        }
+    }
+
+    if (album === '') {
+        album = null;
+    } else if (!fileController.checkFileType(album, 'album')) {
+        errors.push('Only images are accepeted');
+    } else if (!fileController.checkFileSize(album, 1)) {
+        errors.push('The size of this image is too large');
+    }
+
+    if (songAudios !== '') {
+        for (let songAudio of songAudios) {
+            if (!fileController.checkFileType(songAudio, 'song')) {
+                errors.push('Song is invalid');
+                break;
+            } else if (!fileController.checkFileSize(songAudio, '20')) {
+                errors.push('The size of the song is too large');
+                break;
+            }
+        }
+    }
+
+    if (songNames.length !== songAudios.length) {
+        errors.push('You have a missing arguments in your songs');
+    }
+
+    if (songNames === '' && existSongs === '' && songAudios === '') {
+        errors.push('You need to choose at least one song to add your new playlist');
+    }
+
+    if (errors.length === 0) {
+        if (album !== null) {
+            fileController.moveFile(album, 'album', false, (image) => {
+                album = image;
+                playlistController.setPlaylist(playlistName, album, genre, existSongs, songAudios, songNames, res);
+            });
+        } else {
+            playlistController.setPlaylist(playlistName, album, genre, existSongs, songAudios, songNames, res);
+        }
     } else {
         res.json({
             response: false,
             errors: errors
-        })
+        });
     }
-
-    // console.log(req.body.existSongs);
 });
 
 router.delete('/playlist/:id', (req, res) => {

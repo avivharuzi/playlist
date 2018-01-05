@@ -38,7 +38,7 @@ module.exports.checkFileSize = (file, size) => {
     }
 }
 
-module.exports.moveFile = (file, type) => {
+module.exports.moveFile = (file, type, isArray, cb) => {
     let folder;
 
     switch (type) {
@@ -55,21 +55,34 @@ module.exports.moveFile = (file, type) => {
             }
             break;
     }
-    
-    console.log(folder);
 
-    const fileExt = file.name.split('.');
-    const fileActualExt = fileExt[fileExt.length - 1];
+    if (isArray) {
+        let newFileNames = [];
 
-    const newFileName = Date.now() + '.' + fileActualExt;
+        for (let sepFile of file) {
+            const fileExt = sepFile.name.split('.');
+            const fileActualExt = fileExt[fileExt.length - 1];
+            const newFileName = Date.now() + '.' + fileActualExt;
 
-    console.log(newFileName);
-
-    file.mv(folder + newFileName, (err) => {
-        if (err) {
-            return res.status(500).send(err);
-        } else {
-            return newFileName;
+            sepFile.mv(folder + newFileName, (err) => {
+                if (err) {
+                    res.status(500).send(err);
+                }
+            });
+            newFileNames.push(newFileName);
         }
-    });
+        cb(newFileNames);
+    } else {
+        const fileExt = file.name.split('.');
+        const fileActualExt = fileExt[fileExt.length - 1];
+        const newFileName = Date.now() + '.' + fileActualExt;
+    
+        file.mv(folder + newFileName, (err) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                cb(newFileName);
+            }
+        });
+    }
 }

@@ -73,7 +73,7 @@ $(function () {
 
 
 function changeTitleBySong(song) {
-	document.title = $("#playlistName").text() + " - " + song;
+	document.title = $("body").find("#playlistNamePlaying").text() + " - " + song;
 }
 
 function changeSong(song) {
