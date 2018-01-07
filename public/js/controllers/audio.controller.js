@@ -33,10 +33,6 @@ $(function () {
 		$(".play-now").next().click();
 	});
 
-	mainPlayer.on("click", "#heart", function () {
-		heart.toggleClass("fill-heart");;
-	});
-
 	mainPlayer.on("click", "#list", function () {
 		list.toggleClass("chosen-control");
 		$(".playlist-songs").slideToggle();
@@ -49,6 +45,12 @@ $(function () {
 		} else {
 			$(this).attr("data-random", "false");
 		}
+	});
+
+	mainPlayer.on("click", "#heart", function () {
+		heart.toggleClass("fill-heart");
+		let playlistId = $(this).parents("#mainPlayer").attr("data-id");
+		setFavoritePlaylistAction(playlistId);
 	});
 
 	mainPlayer.on("click", "#retweet", function () {
@@ -192,6 +194,11 @@ function setVolume() {
 			audio.volume = 1;
 		}
 	});
+}
+
+function stopPlayingMusic() {
+	$("#sourcePlayer").attr("src", "");
+    audio.pause();
 }
 
 function toggleVolumeUp() {

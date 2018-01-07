@@ -23,3 +23,27 @@ function messageTemplate(data, element) {
         return true;
     }
 }
+
+function warningTemplate(msg, element) {
+    let output = `
+    <div class="col-lg-12">
+        <div class="alert alert-warning text-center">
+            <p class="lead"><i class="fa fa-exclamation-circle mr-2"></i>${msg}</p>
+        </div>
+    </div>
+    `;
+
+    element.html(output);
+}
+
+function dangerTemplate(msg, element) {
+    let output = `
+    <div class="col-lg-12">
+        <div class="alert alert-danger text-center">
+            <p class="lead"><i class="fa fa-exclamation-circle mr-2"></i>${msg}</p>
+        </div>
+    </div>
+    `;
+
+    element.html(output);
+}

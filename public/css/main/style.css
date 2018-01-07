@@ -7,6 +7,7 @@ body {
 	-webkit-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
     -moz-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
 	box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
+	display: none;
 }
 
 #nav {
@@ -46,6 +47,10 @@ body {
 	height: 260px;
 	padding: 30px;
 	box-sizing: border-box;
+}
+
+.p-no-margin {
+	margin: 0 !important;
 }
 
 #playerHeader > span {

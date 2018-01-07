@@ -24,8 +24,8 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
         <link rel="stylesheet" type="text/css" href="assets/select2-bootstrap-theme/dist/select2-bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="assets/sweetalert2/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/loader.css">
+        <link rel="stylesheet" type="text/css" href="css/main/style.css">
+        <link rel="stylesheet" type="text/css" href="css/main/loader.css">
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     </head>
     <body>
@@ -33,13 +33,14 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
             <div class="container">
                 <div class="row" id="nav-header">
                     <div class="col-lg-3 mobile-b-3">
-                        <button class="btn btn-dark btn-block text-center"><i class="fa fa-home mr-2"></i>Home</button>
+                        <button class="btn btn-dark btn-block text-center" id="home"><i class="fa fa-home mr-2"></i>Home</button>
                     </div>
                     <div class="col-lg-3 mobile-b-3">
-                        <button class="btn btn-primary btn-block text-center" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus mr-2"></i>Add New Playlist</button>
+                        <button class="btn btn-primary btn-block text-center" id="openAddPlaylistModal" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus mr-2"></i>Add New Playlist</button>
+                        <button class="d-none" id="openEditPlaylistModal" data-toggle="modal" data-target=".bd-example-modal-lg"></button>
                     </div>
                     <div class="col-lg-3 mobile-b-3">
-                        <button class="btn btn-danger btn-block text-center"><i class="fa fa-heart mr-2"></i>Favorites</button>
+                        <button class="btn btn-danger btn-block text-center" id="favorites"><i class="fa fa-heart mr-2"></i>Favorites</button>
                     </div>
                     <div class="col-lg-3 mobile-b-3">
                         <div class="input-group">
@@ -72,7 +73,7 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
                         </div>
                         <form id="playlistForm">
                             <div class="jumbotron mt-3 p-2 text-center text-light bg-secondary">
-                                <h3>Add New Playlist</h3>
+                                <h3 id="playlistFormTitle">Add New Playlist</h3>
                             </div>
                             <div id="playlistMessage">
                             </div>
@@ -91,8 +92,8 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
                                     </select>
                                 </div>
                             </div>
-                            <div class="jumbotron p-2 text-center text-light bg-secondary">
-                                <h3>Add Playlist Songs</h3>
+                            <div class="jumbotron p-2 text-center text-light bg-warning">
+                                <h3>Playlist Songs</h3>
                             </div>
                             <div class="mb-5" id="addSongsToPlaylistForm">
                                 <div class="row add-new-song-col">
@@ -114,7 +115,7 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
                                 <div class="col-lg-4">
                                     <button id="addMoreSongsFromPlaylists" class="btn btn-dark btn-block" type="button"><i class="fa fa-plus mr-2"></i>Add Song From Playlists</button>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-4" id="colSetPlaylist">
                                     <button id="setPlaylistFinally" class="btn btn-success btn-block" type="button">Submit</button>
                                 </div>
                             </div>
@@ -122,7 +123,7 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
                     </div>
                 </div>
             </div>
-            <div id="mainPlayer" class="d-none mt-5 mb-5">
+            <div id="mainPlayer" class="mt-5 mb-5">
                 <div class="hero">
                     <div class="audio-player">
                         <div id="playerHeader">
@@ -165,13 +166,15 @@ d8888b. db       .d8b.  db    db db      d888888b .d8888. d888888b
         <script src="assets/jquery/dist/jquery.min.js"></script>
         <script src="assets/popper.js/dist/umd/popper.min.js"></script>
         <script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="assets/select2/dist/js/select2.min.js"></script>
+        <script src="assets/select2/dist/js/select2.full.min.js"></script>
         <script src="assets/sweetalert2/dist/sweetalert2.min.js"></script>
         <script src="js/templates/player.template.js"></script>
         <script src="js/templates/playlist.template.js"></script>
         <script src="js/templates/form.template.js"></script>
         <script src="js/templates/message.template.js"></script>
+        <script src="js/controllers/form.controller.js"></script>
         <script src="js/controllers/audio.controller.js"></script>
+        <script src="js/controllers/playlist.controller.js"></script>
         <script src="js/controllers/request.controller.js"></script>
         <script src="js/app.js"></script>
     </body>

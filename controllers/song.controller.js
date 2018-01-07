@@ -44,3 +44,18 @@ function getIds(songs) {
     }
     return ids;
 }
+
+module.exports.checkExistSongs = (songNames, cb) => {
+    Song.find({
+        name: songNames
+    }).exec((err, songs) => {
+        if (songs) {
+            if (songs.constructor !== Array) {
+                songs = [songs];
+            }
+            cb(true, songs);
+        } else {
+            cb(false, songs);
+        }
+    });
+}

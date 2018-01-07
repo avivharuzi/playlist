@@ -2,7 +2,7 @@
 
 function playerTemplate(playlist, element) {
 	let counter = 1;
-	let image = ``;
+	let image = "";
 
 	if (playlist.image === null) {
 		image = `defaults/default-album.jpg`;
@@ -10,15 +10,23 @@ function playerTemplate(playlist, element) {
 		image = `albums/${playlist.image}`;
 	}
 
+	if (playlist.isFavorite) {
+		$("#heart").addClass("fill-heart");
+	} else {
+		$("#heart").removeClass("fill-heart");
+	}
+
 	let outputPlayerHeader = `
 	<img src="images/${image}" class="hero-background">
 	<img src="images/${image}" class="album-image">
 	<i class="fa fa-trash trash-player float-right" id="deletePlaylistFromPlayer" data-id="${playlist._id}"></i>
-	<i class="fa fa-pencil pencil-player float-right"></i>
+	<i class="fa fa-pencil pencil-player float-right" id="editPlaylistFromPlayer"></i>
 	<span id="playlistNamePlaying">${playlist.name}</span>
 	<br>
-	<span id="playlistGenre"># ${playlist.genre}</span>`;
+	<span id="playlistGenre"># ${playlist.genre}</span>
+	`;
 
+	$("#mainPlayer").attr("data-id", playlist._id);
 	$("#playerHeader").html(outputPlayerHeader);
 
 	let outputSongs = ``;
@@ -41,7 +49,6 @@ function playerTemplate(playlist, element) {
 	}
 
 	$(".playlist-songs").html(outputSongs);
-
-	mainPlayer.removeClass("d-none");
-	mainPlayer.addClass("d-block");
+	
+	showPlayer();
 }

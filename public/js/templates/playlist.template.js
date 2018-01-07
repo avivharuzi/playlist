@@ -13,12 +13,12 @@ function playlistTemplate(playlists, element) {
         }
 
         output += `
-        <div class="col-lg-4 mb-5 mt-3 text-center col-playlist">
+        <div class="col-lg-4 mb-5 mt-3 text-center col-playlist" data-id="${playlist._id}">
             <span class="playlist-title" title="${playlist.name}">${playlist.name}</span>
             <span class="songs-count">${playlist.songs.length}</span>
-            <i class="fa fa-trash trash-player playlist-icon-trash float-right deletePlaylistFromPlaylists" data-id="${playlist._id}"></i>
-            <i class="fa fa-pencil pencil-player playlist-icon-pencil float-right"></i>
-            <i class="fa fa-play play-playlist" data-order="${i}"></i>
+            <i class="fa fa-trash trash-player playlist-icon-trash float-right deletePlaylistFromPlaylists"></i>
+            <i class="fa fa-pencil pencil-player playlist-icon-pencil float-right editPlaylistFromPlaylists"></i>
+            <i class="fa fa-play play-playlist"></i>
             <img src="images/${image}" class="album-image-playlists">
         </div>
         `;

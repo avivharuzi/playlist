@@ -1,46 +1,77 @@
 "use strict";
 
-function getPlaylists(cb) {
-	$.ajax({
+function getPlaylists() {
+	return $.ajax({
 		type: "GET",
 		url: "http://localhost:3000/api/playlist",
-		dataType: "JSON",
-		success: function (data) {
-			cb(data);
-		}
+		dataType: "JSON"
 	});
 }
 
-function getSongs(cb) {
-	$.ajax({
+function getPlaylistById(id) {
+	return $.ajax({
+		type: "GET",
+		url: "http://localhost:3000/api/playlist/" + id,
+		dataType: "JSON"
+	});
+}
+
+function getFavoritePlaylists() {
+	return $.ajax({
+		type: "GET",
+		url: "http://localhost:3000/api/playlist/favorite",
+		dataType: "JSON"
+	});
+}
+
+function getSearchResultsDefault(q) {
+	return $.ajax({
+		type: "GET",
+		url: "http://localhost:3000/api/playlist/name/" + q,
+		dataType: "JSON"
+	});
+}
+
+function getSearchResultsFavorite(q) {
+	return $.ajax({
+		type: "GET",
+		url: "http://localhost:3000/api/playlist/favorite/name/" + q,
+		dataType: "JSON"
+	});
+}
+
+function setFavoritePlaylist(id) {
+	return $.ajax({
+		type: "PUT",
+		url: "http://localhost:3000/api/playlist/favorite/" + id,
+		dataType: "JSON"
+	});
+}
+
+function getSongs() {
+	return $.ajax({
 		type: "GET",
 		url: "http://localhost:3000/api/song",
-		dataType: "JSON",
-		success: function (data) {
-			cb(data);
-		}
+		dataType: "JSON"
 	});
 }
 
-function deletePlaylist(_id, cb) {
-	$.ajax({
+function deletePlaylist(id) {
+	return $.ajax({
 		type: "DELETE",
-		url: "http://localhost:3000/api/playlist/" + _id,
-		dataType: "JSON",
-		success: function (res) {
-			cb(res);
-		}
+		url: "http://localhost:3000/api/playlist/" + id,
+		dataType: "JSON"
 	});
 }
 
-function setPlaylist(cb) {
+function setPlaylist() {
 	let fd = new FormData();
 
     let songs = $(".songs");
     for (let song of songs) {
         fd.append("songs", song.files[0]);
 	}
-	
+
 	let album = $("#playlistAlbum").prop("files")[0];
 	fd.append("album", album)
 
@@ -49,16 +80,13 @@ function setPlaylist(cb) {
         fd.append(input.name, input.value);
     }
 
-	$.ajax({
+	return $.ajax({
 		type: "POST",
 		url: "http://localhost:3000/api/playlist",
 		dataType: "JSON",
 		contentType: false,
         processData: false,
         data: fd,
-		success: function (data) {
-			cb(data);
-		},
 		beforeSend: function () {
 			$("#playlistForm").addClass("invisible");
 			$("#mainLoader").show();
