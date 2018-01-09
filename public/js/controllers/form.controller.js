@@ -47,3 +47,7 @@ function setPlaylistFinally() {
         setPlaylistAction();
     });
 }
+
+function setBootstrapThemeToSelect() {
+    $.fn.select2.defaults.set("theme", "bootstrap");
+}

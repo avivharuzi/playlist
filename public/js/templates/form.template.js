@@ -16,7 +16,6 @@ $(function () {
 		</div>
 		`);
 	});
-
 	$("#addMoreSongsFromPlaylists").on("click", function () {
 		$("#addSongsToPlaylistForm").append(`
 			<div class="row add-new-song-col">
@@ -40,16 +39,13 @@ function editPlaylistFormTemplate(playlist) {
 	$("#playlistMessage").empty();
 	$("#playlistAlbum").val("");
 	$("#playlistName").val(playlist.name);
-
 	$("#genre").val(null).trigger("change");
-
 	if ($("#genre").find("option[value='" + playlist.genre + "']").length) {
 		$("#genre").val(playlist.genre).trigger("change");
 	} else {
 		var newOption = new Option(playlist.genre, playlist.genre, true, true);
 		$("#genre").append(newOption).trigger("change");
-	} 
-
+	}
 	let outputSongs = "";
 	for (let song of playlist.songs) {
 		outputSongs += `
@@ -65,7 +61,6 @@ function editPlaylistFormTemplate(playlist) {
 		`;
 	}
 	$("#addSongsToPlaylistForm").html(outputSongs);
-
 	$("#colSetPlaylist").html(`
 		<button id="setPlaylistFinally" class="btn btn-success btn-block" type="button">Save Playlist</button>
 		<input type="hidden" id="existPlaylistName" name="existPlaylistName" class="d-none" value="${playlist.name}">
@@ -87,13 +82,10 @@ function resetPlaylistForm(isResetMessage) {
 	$("#playlistAlbum").parent().html(`
 		<input type="file" class="custom-b4-file" id="playlistAlbum">
 	`);
-
 	$("#genre").val(null).trigger("change");
-
 	$("#addSongsToPlaylistForm").empty();
 	$("#addMoreSongsInputs").click();
-
 	$("#colSetPlaylist").html(`
-		<button id="setPlaylistFinally" class="btn btn-success btn-block" type="button">Submit</button>
+		<button id="setPlaylistFinally" class="btn btn-success btn-block" type="button">Add Playlist</button>
 	`);
 }

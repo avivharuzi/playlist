@@ -2,16 +2,17 @@
 
 async function drawPlaylists() {
 	let playlists = await getPlaylists();
-	playlistTemplate(playlists, mainPlaylists);
+	
+	playlistTemplate(playlists, MAIN_PLAYLISTS);
 }
 
 async function drawFavoritePlaylists() {
 	let playlists = await getFavoritePlaylists();
 
 	if (playlists.length > 0) {
-		playlistTemplate(playlists, mainPlaylists);
+		playlistTemplate(playlists, MAIN_PLAYLISTS);
 	} else {
-		warningTemplate("There are no favorite playlists right now", mainPlaylists);
+		warningTemplate("There are no favorite playlists right now", MAIN_PLAYLISTS);
 	}
 	
 }
@@ -41,19 +42,19 @@ async function setPlaylistAction() {
 		resetPlaylistForm(false);
 		checkAndDrawPlaylists();
 
-		if (res.data._id === mainPlayer.attr("data-id")) {
-			playerTemplate(res.data, mainPlayer);
+		if (res.data._id === MAIN_PLAYER.attr("data-id")) {
+			playerTemplate(res.data, MAIN_PLAYER);
 		}
 	}
 }
 
 async function changePlaylistInPlayerAction(playlistId) {
 	let playlist = await getPlaylistById(playlistId);
-	playerTemplate(playlist, mainPlayer);
+	playerTemplate(playlist, MAIN_PLAYER);
 }
 
 function changePlaylistInPlayer() {
-	mainPlaylists.on("click", ".play-playlist", function () {
+	MAIN_PLAYLISTS.on("click", ".play-playlist", function () {
 		$(".col-playlist").removeClass("playlist-playing");
 		$(this).parent().addClass("playlist-playing");
 		let playlistId = $(this).parent().attr("data-id");
@@ -64,7 +65,7 @@ function changePlaylistInPlayer() {
 async function setFavoritePlaylistAction(playlistId) {
 	let res = await setFavoritePlaylist(playlistId);
 
-	if (mainPlaylists.attr("playing") === "favorite") {
+	if (MAIN_PLAYLISTS.attr("playing") === "favorite") {
 		drawFavoritePlaylists();
 	}
 }
@@ -86,16 +87,16 @@ async function deletePlaylistAction(element, isPlaying) {
 async function searchPlaylistResultsAction(searchValue) {
 	let playlists = "";
 
-	if (mainPlaylists.attr("playing") === "favorite") {
+	if (MAIN_PLAYLISTS.attr("playing") === "favorite") {
 		playlists = await getSearchResultsFavorite(searchValue);
 	} else {
 		playlists = await getSearchResultsDefault(searchValue);
 	}
 
 	if (playlists.length > 0) {
-		playlistTemplate(playlists, mainPlaylists);
+		playlistTemplate(playlists, MAIN_PLAYLISTS);
 	} else {
-		dangerTemplate("No Results", mainPlaylists);
+		dangerTemplate("No Results", MAIN_PLAYLISTS);
 	}
 }
 
@@ -118,7 +119,7 @@ function editPlaylist() {
 	});
 
 	$("body").on("click", "#editPlaylistFromPlayer", function () {
-		let playlistId = mainPlayer.attr("data-id");
+		let playlistId = MAIN_PLAYER.attr("data-id");
 		editPlaylistAction(playlistId);
 	});
 }
@@ -155,16 +156,16 @@ function checkForDelete(input, isClass) {
 }
 
 function showPlayer() {
-	$("#mainPlayer").show();
+	MAIN_PLAYER.show();
 }
 
 function hidePlayer() {
-	$("#mainPlayer").hide();
+	MAIN_PLAYER.hide();
 }
 
 function cleanPlayer() {
 	$("#playerHeader").empty();
-	$("#mainPlayer").attr("data-id", "");
+	MAIN_PLAYER.attr("data-id", "");
 	$(".playlist-songs").empty();
 	hidePlayer();
 	stopPlayingMusic();
@@ -172,17 +173,22 @@ function cleanPlayer() {
 }
 
 function changeToFavoritePlaying() {
-	mainPlaylists.attr("playing", "favorite");
+	MAIN_PLAYLISTS.attr("playing", "favorite");
 }
 
 function changeToDefaultlPlaying() {
-	mainPlaylists.attr("playing", "default");
+	MAIN_PLAYLISTS.attr("playing", "default");
 }
 
 function checkAndDrawPlaylists() {
-	if (mainPlaylists.attr("playing") === "favorite") {
+	if (MAIN_PLAYLISTS.attr("playing") === "favorite") {
 		drawFavoritePlaylists();
 	} else {
 		drawPlaylists();
 	}
+}
+
+function checkForDeleteActions() {
+	checkForDelete("#deletePlaylistFromPlayer", false);
+	checkForDelete(".deletePlaylistFromPlaylists", true);
 }

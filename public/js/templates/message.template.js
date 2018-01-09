@@ -2,7 +2,6 @@
 
 function messageTemplate(data, element) {
     let output = "";
-
     if (data.response === false) {
         output += 
         `<div class="alert alert-danger alert-dismissible fade show">
@@ -32,7 +31,6 @@ function warningTemplate(msg, element) {
         </div>
     </div>
     `;
-
     element.html(output);
 }
 
@@ -44,6 +42,5 @@ function dangerTemplate(msg, element) {
         </div>
     </div>
     `;
-
     element.html(output);
 }

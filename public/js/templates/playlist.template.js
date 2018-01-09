@@ -2,16 +2,13 @@
 
 function playlistTemplate(playlists, element) {
     let output = ``;
-    
-    for (let [i, playlist] of playlists.entries()) {
+    for (let playlist of playlists) {
         let image = ``;
-
         if (playlist.image === null) {
             image = `defaults/default-album.jpg`;
         } else {
             image = `albums/${playlist.image}`;
         }
-
         output += `
         <div class="col-lg-4 mb-5 mt-3 text-center col-playlist" data-id="${playlist._id}">
             <span class="playlist-title" title="${playlist.name}">${playlist.name}</span>
@@ -23,6 +20,5 @@ function playlistTemplate(playlists, element) {
         </div>
         `;
     }
-
     element.html(output);
 }

@@ -1,21 +1,7 @@
 "use strict";
 
-const mainPlayer = $("#mainPlayer");
-const mainPlaylists = $("#mainPlaylists");
-const audio = $("#player")[0];
-const startTime = $("#startTime");
-const endTime = $("#endTime");
-const playPause = $("#playPause");
-const progressbar = $("#seek")[0];
-const rangeVolume = $("#rangeVolume");
-const volume = $("#volume");
-const heart = $("#heart");
-const retweet = $("#retweet");
-const list = $("#list");
-const random = $("#random");
-
 $(function () {
-    mainPlayer.on("click", ".song", function () {
+    MAIN_PLAYER.on("click", ".song", function () {
 		changeSong($(this).attr("data-player"));
 		changeTitleBySong($(this).attr("data-name"));
         $(".song").removeClass("play-now");
@@ -25,20 +11,20 @@ $(function () {
 		toggleToPause();
 	});
 
-	mainPlayer.on("click", "#backward", function () {
+	MAIN_PLAYER.on("click", "#backward", function () {
 		$(".play-now").prev().click();
 	});
 
-	mainPlayer.on("click", "#forward", function () {
+	MAIN_PLAYER.on("click", "#forward", function () {
 		$(".play-now").next().click();
 	});
 
-	mainPlayer.on("click", "#list", function () {
-		list.toggleClass("chosen-control");
+	MAIN_PLAYER.on("click", "#list", function () {
+		LIST.toggleClass("chosen-control");
 		$(".playlist-songs").slideToggle();
 	});
 
-	mainPlayer.on("click", "#random", function () {
+	MAIN_PLAYER.on("click", "#random", function () {
 		$(this).toggleClass("chosen-control");
 		if ($(this).attr("data-random") === "false") {
 			$(this).attr("data-random", "true");
@@ -47,22 +33,22 @@ $(function () {
 		}
 	});
 
-	mainPlayer.on("click", "#heart", function () {
-		heart.toggleClass("fill-heart");
+	MAIN_PLAYER.on("click", "#heart", function () {
+		HEART.toggleClass("fill-heart");
 		let playlistId = $(this).parents("#mainPlayer").attr("data-id");
 		setFavoritePlaylistAction(playlistId);
 	});
 
-	mainPlayer.on("click", "#retweet", function () {
-		retweet.toggleClass("chosen-control");
-		audio.loop = audio.loop === false ? true : false;
-		if (audio.loop === false) {
+	MAIN_PLAYER.on("click", "#retweet", function () {
+		RETWEET.toggleClass("chosen-control");
+		AUDIO.loop = AUDIO.loop === false ? true : false;
+		if (AUDIO.loop === false) {
 			toggleToPause();
 		}
 	});
 	
 	$("#player").on("ended", function () {
-		if (random.attr("data-random") === "false") {
+		if (RANDOM.attr("data-random") === "false") {
 			$(".play-now").next().click();
 		} else {
 			$(".song").random().click();
@@ -80,61 +66,61 @@ function changeTitleBySong(song) {
 
 function changeSong(song) {
 	$("#sourcePlayer").attr("src", song);
-    audio.pause();
-    audio.load();
-    audio.oncanplaythrough = audio.play();
+    AUDIO.pause();
+    AUDIO.load();
+    AUDIO.oncanplaythrough = AUDIO.play();
 }
 
 function initProgressBar() {
-	let length = audio.duration;
-	let currentTime = audio.currentTime;
+	let length = AUDIO.duration;
+	let currentTime = AUDIO.currentTime;
 
 	if (!isNaN(length)) {
 		let totalLength = calculateTotalValue(length);
-		endTime.html(totalLength);
+		END_TIME.html(totalLength);
 	}
 	
 	currentTime = calculateCurrentValue(currentTime);
-	startTime.html(currentTime);
+	START_TIME.html(currentTime);
 
 	if (isNaN(length)) {
-		progressbar.value = 0;
+		PROGRESS_BAR.value = 0;
 	} else {
-		progressbar.value = audio.currentTime / length;
+		PROGRESS_BAR.value = AUDIO.currentTime / length;
 	}
 	
-	progressbar.addEventListener("click", seek);
+	PROGRESS_BAR.addEventListener("click", seek);
 
-	if (audio.currentTime == audio.duration) {
-		playPause.addClass("fa-play");
-		playPause.removeClass("fa-pause");
-		startTime.html("00:00");
-		progressbar.value = 0;
+	if (AUDIO.currentTime == AUDIO.duration) {
+		PLAY_PAUSE.addClass("fa-play");
+		PLAY_PAUSE.removeClass("fa-pause");
+		START_TIME.html("00:00");
+		PROGRESS_BAR.value = 0;
 	}
 
 	function seek(event) {
 		let percent = event.offsetX / this.offsetWidth;
-		audio.currentTime = percent * audio.duration;
-		progressbar.value = percent / 100;
+		AUDIO.currentTime = percent * AUDIO.duration;
+		PROGRESS_BAR.value = percent / 100;
 	}
 }
 
 function initPlayers() {
 	let isPlaying = false;
 
-	if (playPause != null) {
-		playPause.on("click", function () {
+	if (PLAY_PAUSE != null) {
+		PLAY_PAUSE.on("click", function () {
 			togglePlay();
 		});
 	}
 
 	function togglePlay() {
-		if (audio.paused === false) {
-			audio.pause();
+		if (AUDIO.paused === false) {
+			AUDIO.pause();
 			isPlaying = false;
 			toggleToPlay();
 		} else {
-			audio.play();
+			AUDIO.play();
 			isPlaying = true;
 			toggleToPause();
 		}
@@ -167,7 +153,7 @@ function calculateCurrentValue(currentTime) {
 }
 
 function setVolume() {
-	rangeVolume.on("change", function () {
+	RANGE_VOLUME.on("change", function () {
 		let volume = $(this).val();
 
 		if (volume > 0.5) {
@@ -178,55 +164,55 @@ function setVolume() {
 			toggleVolumeDown();
 		}
 
-		audio.volume = volume;
+		AUDIO.volume = volume;
 	});
 
-	volume.on("click", function () {
-		let volume = audio.volume;
+	VOLUME.on("click", function () {
+		let volume = AUDIO.volume;
 
 		if (volume > 0) {
 			toggleVolumeDown();
-			rangeVolume.val("0");
-			audio.volume = 0;
+			RANGE_VOLUME.val("0");
+			AUDIO.volume = 0;
 		} else {
 			toggleVolumeUp();
-			rangeVolume.val("1");
-			audio.volume = 1;
+			RANGE_VOLUME.val("1");
+			AUDIO.volume = 1;
 		}
 	});
 }
 
 function stopPlayingMusic() {
 	$("#sourcePlayer").attr("src", "");
-    audio.pause();
+    AUDIO.pause();
 }
 
 function toggleVolumeUp() {
-	volume.removeClass("fa-volume-down");
-	volume.removeClass("fa-volume-off");
-	volume.addClass("fa-volume-up");
+	VOLUME.removeClass("fa-volume-down");
+	VOLUME.removeClass("fa-volume-off");
+	VOLUME.addClass("fa-volume-up");
 }
 
 function toggleVolumeMiddle() {
-	volume.removeClass("fa-volume-off");
-	volume.removeClass("fa-volume-up");
-	volume.addClass("fa-volume-down");
+	VOLUME.removeClass("fa-volume-off");
+	VOLUME.removeClass("fa-volume-up");
+	VOLUME.addClass("fa-volume-down");
 }
 
 function toggleVolumeDown() {
-	volume.removeClass("fa-volume-down");
-	volume.removeClass("fa-volume-up");
-	volume.addClass("fa-volume-off");
+	VOLUME.removeClass("fa-volume-down");
+	VOLUME.removeClass("fa-volume-up");
+	VOLUME.addClass("fa-volume-off");
 }
 
 function toggleToPlay() {
-	playPause.removeClass("fa-pause");
-	playPause.addClass("fa-play");
+	PLAY_PAUSE.removeClass("fa-pause");
+	PLAY_PAUSE.addClass("fa-play");
 }
 
 function toggleToPause() {
-	playPause.removeClass("fa-play");
-	playPause.addClass("fa-pause");
+	PLAY_PAUSE.removeClass("fa-play");
+	PLAY_PAUSE.addClass("fa-pause");
 }
 
 jQuery.fn.random = function () {

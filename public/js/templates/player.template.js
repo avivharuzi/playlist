@@ -3,19 +3,16 @@
 function playerTemplate(playlist, element) {
 	let counter = 1;
 	let image = "";
-
 	if (playlist.image === null) {
 		image = `defaults/default-album.jpg`;
 	} else {
 		image = `albums/${playlist.image}`;
 	}
-
 	if (playlist.isFavorite) {
 		$("#heart").addClass("fill-heart");
 	} else {
 		$("#heart").removeClass("fill-heart");
 	}
-
 	let outputPlayerHeader = `
 	<img src="images/${image}" class="hero-background">
 	<img src="images/${image}" class="album-image">
@@ -25,12 +22,9 @@ function playerTemplate(playlist, element) {
 	<br>
 	<span id="playlistGenre"># ${playlist.genre}</span>
 	`;
-
-	$("#mainPlayer").attr("data-id", playlist._id);
+	MAIN_PLAYER.attr("data-id", playlist._id);
 	$("#playerHeader").html(outputPlayerHeader);
-
 	let outputSongs = ``;
-
 	for (let song of playlist.songs) {
 		if (counter === 1) {
 			changeSong(`songs/${song.audio}`);
@@ -49,6 +43,5 @@ function playerTemplate(playlist, element) {
 	}
 
 	$(".playlist-songs").html(outputSongs);
-	
 	showPlayer();
 }
