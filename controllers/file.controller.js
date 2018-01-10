@@ -58,11 +58,12 @@ module.exports.moveFile = (file, type, isArray, cb) => {
 
     if (isArray) {
         let newFileNames = [];
+        let i = 0;
 
         for (let sepFile of file) {
             const fileExt = sepFile.name.split('.');
             const fileActualExt = fileExt[fileExt.length - 1];
-            const newFileName = Date.now() + '.' + fileActualExt;
+            const newFileName = Date.now() + i + '.' + fileActualExt;
 
             sepFile.mv(folder + newFileName, (err) => {
                 if (err) {
@@ -70,6 +71,7 @@ module.exports.moveFile = (file, type, isArray, cb) => {
                 }
             });
             newFileNames.push(newFileName);
+            i++;
         }
         cb(newFileNames);
     } else {
