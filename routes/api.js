@@ -201,8 +201,21 @@ router.post('/playlist', (req, res) => {
         }
 
         for (let songName of songNames) {
+            let l = 0;
+
             if (!validation(songName, /^[A-Za-z0-9!@#$%^&*()_., -]{3,255}$/)) {
                 errors.push('Song name is invalid');
+                break;
+            }
+
+            for (let songNameSpec of songNames) {
+                if (songName === songNameSpec) {
+                    l++;
+                }
+            }
+
+            if (l >= 2) {
+                errors.push('You have two songs with the same name');
                 break;
             }
         }

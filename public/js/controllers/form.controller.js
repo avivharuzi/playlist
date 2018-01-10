@@ -46,6 +46,7 @@ function setPlaylistFinally() {
     $("body").on("click", "#setPlaylistFinally", function () {
         let data = checkInputsFormPlaylist();
         if (data === true) {
+            $("#playlistMessage").empty();
             setPlaylistAction();
         } else {
             messageTemplate(data, $("#playlistMessage"));
