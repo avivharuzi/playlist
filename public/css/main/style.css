@@ -23,7 +23,6 @@ body {
 	background-size: cover;
 	display: inline-block;
 	float: left;
-	box-shadow: 6px 6px 10px 0.5px #333;
 }
 
 .hero {

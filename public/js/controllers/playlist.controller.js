@@ -3,7 +3,11 @@
 async function drawPlaylists() {
 	let playlists = await getPlaylists();
 	
-	playlistTemplate(playlists, MAIN_PLAYLISTS);
+	if (playlists.length > 0) {
+		playlistTemplate(playlists, MAIN_PLAYLISTS);
+	} else {
+		warningTemplate("There are no playlists right now", MAIN_PLAYLISTS);
+	}
 }
 
 async function drawFavoritePlaylists() {
@@ -14,7 +18,6 @@ async function drawFavoritePlaylists() {
 	} else {
 		warningTemplate("There are no favorite playlists right now", MAIN_PLAYLISTS);
 	}
-	
 }
 
 async function getSongsToSelect2() {

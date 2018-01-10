@@ -225,7 +225,7 @@ router.post('/playlist', (req, res) => {
     }
 
     if (songNames === '' && existSongs === '' && songAudios === '') {
-        errors.push('You need to choose at least one song to add your new playlist');
+        errors.push('You need to choose at least one song to your playlist');
     }
     
     if (errors.length === 0) {

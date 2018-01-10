@@ -44,10 +44,58 @@ function select2Genre() {
 
 function setPlaylistFinally() {
     $("body").on("click", "#setPlaylistFinally", function () {
-        setPlaylistAction();
+        let data = checkInputsFormPlaylist();
+        if (data === true) {
+            setPlaylistAction();
+        } else {
+            messageTemplate(data, $("#playlistMessage"));
+        }
     });
 }
 
 function setBootstrapThemeToSelect() {
     $.fn.select2.defaults.set("theme", "bootstrap");
+}
+
+function checkInputsFormPlaylist() {
+    let errors = [];
+
+    const PLAYLIST_NAME_REGEX = /^[A-Za-z0-9!@#$%^&*()_., ]{3,255}$/;
+    const GENRE_REGEX = /^[A-Za-z0-9 &]{3,55}$/;
+    const SONG_NAME_REGEX = /^[A-Za-z0-9!@#$%^&*()_., -]{3,255}$/;
+
+    let playlistNameValue = $("#playlistName").val();
+    let genreValue = $("#genre").val();
+    let songNames = $("input[name=songName]");
+
+    if (playlistNameValue === "") {
+        errors.push("Playlist name is required");
+    } else if (!PLAYLIST_NAME_REGEX.test(playlistNameValue)) {
+        errors.push("Playlist name is invalid");
+    }
+
+    if (genreValue === "") {
+        errors.push("Genre is required");
+    } else if (!GENRE_REGEX.test(genreValue)) {
+        errors.push("Genre is invalid");
+    }
+
+    for (let songName of songNames) {
+        if (songName.value === "") {
+            errors.push("Song name is required");
+            break;
+        } else if (!SONG_NAME_REGEX.test(songName.value)) {
+            errors.push(`Song name ${songName.value} is invalid`);
+        }
+    }
+
+    if (errors.length > 0) {
+        let data = {
+            response: false,
+            errors: errors
+        }
+        return data;
+    } else {
+        return true;
+    }
 }
