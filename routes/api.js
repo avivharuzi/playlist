@@ -344,53 +344,6 @@ router.get('/song/:id', (req, res) => {
     });
 });
 
-router.post('/song', (req, res) => {
-    req.checkBody('name', 'Invalid song name').isAlphanumeric();
-
-    let errors = req.validationErrors();
-
-    if (errors) {
-        res.json({
-            errors: errors
-        });
-    } else {
-        Song.create(req.body, (err, song) => {
-            if (err) {
-                res.json({
-                    response: false,
-                    message: 'There was problem by adding this song'
-                });
-            } else {
-                res.json(song);
-            }
-        }); 
-    }
-});
-
-router.put('/song/:id', (req, res) => {
-    Song.findOneAndUpdate({
-        _id: req.params.id
-    }, {
-        $set: {
-            name: req.body.name
-        }
-    }, {
-        upsert: true
-    }, (err, newSong) => {
-        if (err) {
-            res.json({
-                response: false,
-                message: 'There was problem by update this song'
-            });
-        } else {
-            res.json({
-                response: true,
-                message: 'This song updated successfully'
-            });
-        }
-    });
-});
-
 router.delete('/song/:id', (req, res) => {
     Song.findOneAndRemove({
         _id: req.params.id
