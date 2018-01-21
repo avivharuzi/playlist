@@ -3,24 +3,18 @@ const router = express.Router();
 const fs = require('fs');
 const Playlist = require('../models/playlist.model');
 const Song = require('../models/song.model');
-const validation = require('../controllers/validation.controller');
+const routeController = require('../controllers/route.controller');
+const validationController = require('../controllers/validation.controller');
 const fileController = require('../controllers/file.controller');
 const playlistController = require('../controllers/playlist.controller');
 const songController = require('../controllers/song.controller');
-
-function problem(res) {
-    return res.json({
-        response: false,
-        message: 'There was problem with this request'
-    });
-}
 
 router.get('/playlist', (req, res) => {
     Playlist.find()
     .populate('songs')
         .exec((err, playlists) => {
             if (err) {
-                problem(res);
+                routeController.problem(res);
             } else if (playlists == false) {
                 res.json({
                     response: false,
@@ -39,7 +33,7 @@ router.get('/playlist/favorite', (req, res) => {
     .populate('songs')
         .exec((err, playlists) => {
             if (err) {
-                problem(res);
+                routeController.problem(res);
             } else {
                 res.json(playlists)
             }
@@ -73,7 +67,7 @@ router.get('/playlist/name/:name', (req, res) => {
     .populate('songs')
         .exec((err, playlists) => {
             if (err) {
-                problem(res);
+                routeController.problem(res);
             } else {
                 res.json(playlists);
             }
@@ -91,7 +85,7 @@ router.get('/playlist/favorite/name/:name', (req, res) => {
     .populate('songs')
         .exec((err, playlists) => {
             if (err) {
-                problem(res);
+                routeController.problem(res);
             } else {
                 res.json(playlists);
             }
@@ -108,7 +102,7 @@ router.get('/playlist/genre/:genre', (req, res) => {
     .populate('songs')
         .exec((err, playlists) => {
             if (err) {
-                problem(res);
+                routeController.problem(res);
             } else if (playlists == false) {
                 res.json({
                     response: false,
@@ -165,7 +159,7 @@ router.post('/playlist', (req, res) => {
         }
     }
 
-    if (!validation(req.body.playlistName, /^[A-Za-z0-9!@#$%^&*()_., ]{3,255}$/)) {
+    if (!validationController(req.body.playlistName, /^[A-Za-z0-9!@#$%^&*()_., ]{3,255}$/)) {
         errors.push('Playlist name is invalid');
     } else {
         playlistName = req.body.playlistName;
@@ -177,7 +171,7 @@ router.post('/playlist', (req, res) => {
         }
     }
 
-    if (!validation(req.body.genre, /^[A-Za-z0-9 &]{3,55}$/)) {
+    if (!validationController(req.body.genre, /^[A-Za-z0-9 &]{3,55}$/)) {
         errors.push('Genre name is invalid');
     } else {
         genre = req.body.genre;
@@ -203,7 +197,7 @@ router.post('/playlist', (req, res) => {
         for (let songName of songNames) {
             let l = 0;
 
-            if (!validation(songName, /^[A-Za-z0-9!@#$%^&*()_., -]{3,255}$/)) {
+            if (!validationController(songName, /^[A-Za-z0-9!@#$%^&*()_., -]{3,255}$/)) {
                 errors.push('Song name is invalid');
                 break;
             }
@@ -300,7 +294,7 @@ router.delete('/playlist/:id', (req, res) => {
         _id: req.params.id
     }, (err, playlist) => {
         if (err) {
-            problem(res);
+            routeController.problem(res);
         } else {
             if (playlist.image !== null) {
                 fs.unlinkSync('public/images/albums/' + playlist.image);
