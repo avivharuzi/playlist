@@ -2,14 +2,12 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const Playlist = require('../models/playlist.model');
-const Song = require('../models/song.model');
 const routeController = require('../controllers/route.controller');
 const validationController = require('../controllers/validation.controller');
 const fileController = require('../controllers/file.controller');
 const playlistController = require('../controllers/playlist.controller');
-const songController = require('../controllers/song.controller');
 
-router.get('/playlist', (req, res) => {
+router.get('/', (req, res) => {
     Playlist.find()
     .populate('songs')
         .exec((err, playlists) => {
@@ -26,7 +24,7 @@ router.get('/playlist', (req, res) => {
         });
 });
 
-router.get('/playlist/favorite', (req, res) => {
+router.get('/favorite', (req, res) => {
     Playlist.find({
         isFavorite: true
     })
@@ -40,7 +38,7 @@ router.get('/playlist/favorite', (req, res) => {
         });
 });
 
-router.get('/playlist/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     Playlist.findOne({
         _id: req.params.id
     })
@@ -57,7 +55,7 @@ router.get('/playlist/:id', (req, res) => {
         });
 });
 
-router.get('/playlist/name/:name', (req, res) => {
+router.get('/name/:name', (req, res) => {
     Playlist.find({
         name: {
             $regex: '.*' + req.params.name + '.*',
@@ -74,7 +72,7 @@ router.get('/playlist/name/:name', (req, res) => {
         });
 });
 
-router.get('/playlist/favorite/name/:name', (req, res) => {
+router.get('/favorite/name/:name', (req, res) => {
     Playlist.find({
         name: {
             $regex: '.*' + req.params.name + '.*',
@@ -92,7 +90,7 @@ router.get('/playlist/favorite/name/:name', (req, res) => {
         });
 });
 
-router.get('/playlist/genre/:genre', (req, res) => { 
+router.get('/genre/:genre', (req, res) => { 
     Playlist.find({
         genre: {
             $regex: '.*' + req.params.genre + '.*',
@@ -114,7 +112,7 @@ router.get('/playlist/genre/:genre', (req, res) => {
         });
 });
 
-router.post('/playlist', (req, res) => {
+router.post('/', (req, res) => {
     let errors = [];
 
     let playlistName = '';
@@ -261,7 +259,7 @@ router.post('/playlist', (req, res) => {
     }
 });
 
-router.put('/playlist/favorite/:id', (req, res) => {
+router.put('/favorite/:id', (req, res) => {
     let playlistId = req.params.id;
 
     playlistController.checkIfFavorite(playlistId, (bool) => {
@@ -289,7 +287,7 @@ router.put('/playlist/favorite/:id', (req, res) => {
     });
 });
 
-router.delete('/playlist/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     Playlist.findOneAndRemove({
         _id: req.params.id
     }, (err, playlist) => {
@@ -303,54 +301,6 @@ router.delete('/playlist/:id', (req, res) => {
             res.json({
                 response: true,
                 message: 'Playlist deleted successfully'
-            });
-        }
-    });
-});
-
-router.get('/song', (req, res) => {
-    Song.find()
-        .exec((err, songs) => {
-            if (err) {
-                res.json({
-                    response: false,
-                    message: 'There are no songs'
-                });
-            } else {
-                res.json(songs);
-            }
-        });
-});
-
-router.get('/song/:id', (req, res) => {
-    Song.findOne({
-        _id: req.params.id
-    })
-    .exec((err, song) => {
-        if (err) {
-            res.json({
-                response: false,
-                message: 'There are no song with this id'
-            });
-        } else {
-            res.json(song);
-        }
-    });
-});
-
-router.delete('/song/:id', (req, res) => {
-    Song.findOneAndRemove({
-        _id: req.params.id
-    }, (err, song) => {
-        if (err) {
-            res.json({
-                response: false,
-                message: 'There was problem by deleting this song'
-            });
-        } else {
-            res.json({
-                response: true,
-                message: 'This song deleted successfully'
             });
         }
     });

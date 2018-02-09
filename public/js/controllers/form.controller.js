@@ -58,6 +58,15 @@ function setBootstrapThemeToSelect() {
     $.fn.select2.defaults.set("theme", "bootstrap");
 }
 
+function changeSongNameBySongFile() {
+    $("body").on("change", ".songs", function () {
+        let name = $(this)[0].files[0].name;
+        let lastIndex = name.lastIndexOf(".");
+        name = name.substr(0, lastIndex);
+        $(this).parent().prev().children("input[name=songName]")[0].value = name;
+    });
+}
+
 function checkInputsFormPlaylist() {
     let errors = [];
 

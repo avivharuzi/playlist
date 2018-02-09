@@ -49,7 +49,11 @@ $(function () {
 	
 	$("#player").on("ended", function () {
 		if (RANDOM.attr("data-random") === "false") {
-			$(".play-now").next().click();
+			if ($(".play-now").next().length) {
+				$(".play-now").next().click();
+			} else {
+				toggleToPlay();
+			}
 		} else {
 			$(".song").random().click();
 		}
