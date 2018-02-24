@@ -3,10 +3,10 @@ spa app with node.js via play music by playlists
 
 ### Database
 
-gallery
+music
 
 ### Collections
 
-image
+playlist
 
-user
+song
