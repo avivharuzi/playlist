@@ -10,7 +10,7 @@ function playlistTemplate(playlists, element) {
             image = `albums/${playlist.image}`;
         }
         output += `
-        <div class="col-lg-4 mb-5 mt-3 text-center col-playlist" data-id="${playlist._id}">
+        <div class="col-lg-3 mb-5 mt-3 text-center col-playlist" data-id="${playlist._id}">
             <span class="playlist-title" title="${playlist.name}">${playlist.name}</span>
             <span class="songs-count">${playlist.songs.length}</span>
             <i class="fa fa-trash trash-player playlist-icon-trash float-right deletePlaylistFromPlaylists"></i>

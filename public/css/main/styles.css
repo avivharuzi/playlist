@@ -206,9 +206,9 @@ progress::-webkit-progress-value {
 	transform: translate(-50%, -50%);
 	color: #fff;
 	background: #000;
-	border-radius: 80px;
-	padding: 40px;
-	font-size: 1.3rem;
+	border-radius: 40px;
+	padding: 20px;
+	font-size: 1.2rem;
 	cursor: pointer;
 	z-index: 99;
 	display: none;
@@ -224,7 +224,7 @@ progress::-webkit-progress-value {
 
 .playlist-title {
 	margin: 0;
-	width: 250px;
+	width: 75%;
 	position: absolute;
 	top: 0%;
 	left: 50%;
@@ -245,19 +245,15 @@ progress::-webkit-progress-value {
 .songs-count {
     margin: 0;
     position: absolute;
-    bottom: -20%;
-    left: 15%;
+	bottom: 0;
     font-size: 1.3rem;
-    transform: translate(-50%, -50%);
     color: #fff;
     background: #868E96;
-    padding: 20px;
+    padding: 15px 30px;
     -webkit-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
     -moz-box-shadow: 0 4px 4px -10px rgba(0, 0, 0, 0.52);
     box-shadow: 0 8px 8px 3px rgba(0, 0, 0, 0.52);
 	z-index: 99;
-	width: 70px;
-	height: 70px;
 }
 
 input[type=range] {
@@ -321,13 +317,13 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .playlist-icon-trash {
-    bottom: -15px;
-    right: 5px;
+	bottom: 0px;
+    right: 0px;
 }
 
 .playlist-icon-pencil {
-    bottom: -15px;
-    right: 75px;
+    bottom: 0px;
+	right: 4.5rem;
 }
 
 .player-icon {
@@ -385,8 +381,8 @@ audio {
 }
 
 .album-image-playlists {
-	height: 300px;
-    width: 300px;
+	height: 250px;
+    width: 100%;
     background-size: cover;
     display: inline-block;
     box-shadow: 6px 6px 10px 0.5px #333;
@@ -464,8 +460,15 @@ body::-webkit-scrollbar-thumb {
 	}
 
 	.songs-count {
-		bottom: -20%;
-		left: 30%;
+		bottom: 0;
+	}
+
+	.playlist-icon-trash {
+		right: 0rem;
+	}
+	
+	.playlist-icon-pencil {
+		right: 5rem;
 	}
 }
 
@@ -474,23 +477,17 @@ body::-webkit-scrollbar-thumb {
 		padding-top: 250px;
 	}
 
+	.album-image-playlists {
+		height: 400px;
+	}
+
 	.album-image {
 		width: 200px;
 		margin-bottom: 20px;
 	}
 
-	.album-image-playlists {
-		height: 250px;
-		width: 250px;
-	}
-
-	.playlist-title {
-		width: 200px;
-	}
-
 	.songs-count {
-		bottom: -20%;
-		left: 42.5%;
+		bottom: 0;
 	}
 
 	.play-playlist {
@@ -503,14 +500,6 @@ body::-webkit-scrollbar-thumb {
 		width: 100%;
 		padding: 20px;
 		height: 350px;
-	}
-
-	.playlist-icon-pencil {
-		right: 285px;
-	}
-	
-	.playlist-icon-trash {
-		right: 215px;
 	}
 
 	#playerHeader > span {
@@ -577,22 +566,37 @@ body::-webkit-scrollbar-thumb {
 	}
 }
 
-@media only screen and (max-width: 767px) {
-	.playlist-icon-trash {
-		right: 125px;
-	}
-	
-	.playlist-icon-pencil {
-		right: 200px;
-	}
+@media only screen and (max-width: 768px) {
+
 }
 
 @media only screen and (max-width: 576px) {
 	#playerHeader > span {
 		font-size: 1rem;
-		margin-bottom: 5px;
 		width: 100%;
 		margin-left: 0;
+		display: inline-block;
+		text-align: center;
+	}
+
+	#playerHeader > .album-image {
+		margin: auto auto;
+		width: 100%;
+	}
+
+	#playerHeader i {
+		float: none;
+		text-align: center;
+		margin: 10px 0;
+		margin-left: 20px;
+	}
+
+	.audio-player {
+		height: 400px;
+	}
+	
+	.album-image-playlists {
+		height: 250px;
 	}
 
 	.playlist-songs > li {
@@ -601,18 +605,5 @@ body::-webkit-scrollbar-thumb {
 
 	.show-icon {
 		display: none;
-	}
-
-	.songs-count {
-		bottom: -20%;
-		left: 30%;
-	}
-
-	.playlist-icon-trash {
-		right: 0px;
-	}
-	
-	.playlist-icon-pencil {
-		right: 75px;
 	}
 }
