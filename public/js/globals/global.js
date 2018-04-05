@@ -1,5 +1,6 @@
 "use strict";
 
+const BASE_URL = "";
 const MAIN_PLAYER = $("#mainPlayer");
 const MAIN_PLAYLISTS = $("#mainPlaylists");
 const AUDIO = $("#player")[0];

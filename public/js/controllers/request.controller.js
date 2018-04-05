@@ -3,7 +3,7 @@
 function getPlaylists() {
 	return $.ajax({
 		type: "GET",
-		url: "http://localhost:3000/api/playlist",
+		url: `${BASE_URL}/api/playlist`,
 		dataType: "JSON"
 	});
 }
@@ -11,7 +11,7 @@ function getPlaylists() {
 function getPlaylistById(id) {
 	return $.ajax({
 		type: "GET",
-		url: "http://localhost:3000/api/playlist/" + id,
+		url: `${BASE_URL}/api/playlist/${id}`,
 		dataType: "JSON"
 	});
 }
@@ -19,7 +19,7 @@ function getPlaylistById(id) {
 function getFavoritePlaylists() {
 	return $.ajax({
 		type: "GET",
-		url: "http://localhost:3000/api/playlist/favorite",
+		url: `${BASE_URL}/api/playlist/favorite`,
 		dataType: "JSON"
 	});
 }
@@ -27,7 +27,7 @@ function getFavoritePlaylists() {
 function getSearchResultsDefault(q) {
 	return $.ajax({
 		type: "GET",
-		url: "http://localhost:3000/api/playlist/name/" + q,
+		url: `${BASE_URL}/api/playlist/name/${q}`,
 		dataType: "JSON"
 	});
 }
@@ -35,7 +35,7 @@ function getSearchResultsDefault(q) {
 function getSearchResultsFavorite(q) {
 	return $.ajax({
 		type: "GET",
-		url: "http://localhost:3000/api/playlist/favorite/name/" + q,
+		url: `${BASE_URL}/api/playlist/favorite/name/${q}`,
 		dataType: "JSON"
 	});
 }
@@ -43,7 +43,7 @@ function getSearchResultsFavorite(q) {
 function setFavoritePlaylist(id) {
 	return $.ajax({
 		type: "PUT",
-		url: "http://localhost:3000/api/playlist/favorite/" + id,
+		url: `${BASE_URL}/api/playlist/favorite/${id}`,
 		dataType: "JSON"
 	});
 }
@@ -51,7 +51,7 @@ function setFavoritePlaylist(id) {
 function getSongs() {
 	return $.ajax({
 		type: "GET",
-		url: "http://localhost:3000/api/song",
+		url: `${BASE_URL}/api/song`,
 		dataType: "JSON"
 	});
 }
@@ -59,7 +59,7 @@ function getSongs() {
 function deletePlaylist(id) {
 	return $.ajax({
 		type: "DELETE",
-		url: "http://localhost:3000/api/playlist/" + id,
+		url: `${BASE_URL}/api/playlist/${id}`,
 		dataType: "JSON"
 	});
 }
@@ -82,7 +82,7 @@ function setPlaylist() {
 
 	return $.ajax({
 		type: "POST",
-		url: "http://localhost:3000/api/playlist",
+		url: `${BASE_URL}/api/playlist`,
 		dataType: "JSON",
 		contentType: false,
         processData: false,
