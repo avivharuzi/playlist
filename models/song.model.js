@@ -11,6 +11,6 @@ const songSchema = new Schema({
     audio: String
 });
 
-var Song = mongoose.model('Song', songSchema, 'song')
+const Song = mongoose.model('Song', songSchema, 'songs')
 
 module.exports = Song;

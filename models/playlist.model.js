@@ -10,13 +10,15 @@ const playlistSchema = new Schema({
     },
     image: String,
     genre: String,
-    songs: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Song'
-    }],
+    songs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Song'
+        }
+    ],
     isFavorite: Boolean
 });
 
-const Playlist = mongoose.model('Playlist', playlistSchema, 'playlist');
+const Playlist = mongoose.model('Playlist', playlistSchema, 'playlists');
 
 module.exports = Playlist;

@@ -7,6 +7,6 @@ music
 
 ### Collections
 
-playlist
+playlists
 
-song
+songs
