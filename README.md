@@ -1,11 +1,12 @@
-# playlist
-spa app with node.js via play music by playlists
+# Playlist
 
-### Database
+Play music by playlists built as native SPA with Node.js.
+
+## Database
 
 music
 
-### Collections
+## Collections
 
 playlists
 
